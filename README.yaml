@@ -29,30 +29,27 @@ badges:
     url: "https://slack.cloudposse.com"
 
 related:
-  - name: "terraform-aws-acm-request-certificate"
-    description: "Terraform module to request an ACM certificate for a domain name and create a CNAME record in the DNS zone to complete certificate validation"
-    url: "https://github.com/cloudposse/terraform-aws-acm-request-certificate"
-  - name: "bastion"
-    description: "🔒Secure Bastion implemented as Docker Container running Alpine Linux with Google Authenticator & DUO MFA support"
-    url: "https://github.com/cloudposse/bastion"
-  - name: "terraform-aws-key-pai"
-    description: "Terraform Module to Automatically Generate SSH Key Pairs (Public/Private Keys)"
+  - name: "terraform-aws-key-pair"
+    description: "Terraform Module to Automatically Generate SSH key Pairs (Public/Private Keys)"
     url: "https://github.com/cloudposse/terraform-aws-key-pair"
+  - name: "terraform-tls-ssh-key-pair"
+    description: "Terraform module for generating an SSH public key file"
+    url: "https://github.com/cloudposse/terraform-tls-ssh-key-pair"
 
 # Short description of this project
 description: |-
-  Terraform module that provisions an SSH TLS Key pair and writes it to SSM Parameter Store.
+  Terraform module that provisions an SSH TLS key pair and writes it to SSM Parameter Store.
 
 # How to use this project
 usage: |-
   ```hcl
-  module "ssh_key_pair" {
-    source                = "git::https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.git?ref=master"
-    namespace             = "cp"
-    stage                 = "prod"
-    name                  = "app"
-    ssm_parameter_name    = ""
-    ssm_parameter_path    = ""
+  module "ssm_tls_ssh_key_pair" {
+    source               = "git::https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.git?ref=master"
+    namespace            = "eg"
+    stage                = "prod"
+    name                 = "app"
+    ssm_path_prefix      = "ssh_keys"
+    ssh_key_algorithm    = "ECDSA"
   }
   ```
 
@@ -64,5 +61,5 @@ include:
 contributors:
   - name: "Erik Osterman"
     github: "osterman"
-  - name: "Andriy Knysh"
-    github: "aknysh"
+  - name: "Josh Myers"
+    github: "joshmyers"
