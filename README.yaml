@@ -1,0 +1,65 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-aws-ssm-tls-ssh-key-pair
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: cloudposse/terraform-aws-ssm-tls-ssh-key-pair
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://travis-ci.org/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/terraform-aws-ssm-tls-ssh-key-pair"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.svg"
+    url: "https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair/releases/latest"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+
+related:
+  - name: "terraform-aws-key-pair"
+    description: "Terraform Module to Automatically Generate SSH key Pairs (Public/Private Keys)"
+    url: "https://github.com/cloudposse/terraform-aws-key-pair"
+  - name: "terraform-tls-ssh-key-pair"
+    description: "Terraform module for generating an SSH public key file"
+    url: "https://github.com/cloudposse/terraform-tls-ssh-key-pair"
+
+# Short description of this project
+description: |-
+  Terraform module that provisions an SSH TLS key pair and writes it to SSM Parameter Store.
+
+# How to use this project
+usage: |-
+  ```hcl
+  module "ssm_tls_ssh_key_pair" {
+    source               = "git::https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.git?ref=master"
+    namespace            = "eg"
+    stage                = "prod"
+    name                 = "app"
+    ssm_path_prefix      = "ssh_keys"
+    ssh_key_algorithm    = "ECDSA"
+  }
+  ```
+
+include:
+  - "docs/targets.md"
+  - "docs/terraform.md"
+
+# Contributors to this project
+contributors:
+  - name: "Erik Osterman"
+    github: "osterman"
+  - name: "Josh Myers"
+    github: "joshmyers"
