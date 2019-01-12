@@ -40,6 +40,8 @@ related:
 description: |-
   Terraform module that provisions an SSH TLS key pair and writes it to SSM Parameter Store.
 
+  This is useful for bot accounts (e.g. for GitHub). Easily rotate SSH secrets by simply tainting the module resource and reapplying.
+
 # How to use this project
 usage: |-
   ```hcl
