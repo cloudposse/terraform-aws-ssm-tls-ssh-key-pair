@@ -19,7 +19,7 @@ locals {
   private_key_name         = "${length(var.ssh_private_key_name) > 0 ? var.ssh_private_key_name : local.default_private_key_name}"
   ssh_public_key_ssm_path  = "${format(var.ssm_path_format, var.ssm_path_prefix, local.public_key_name)}"
   ssh_private_key_ssm_path = "${format(var.ssm_path_format, var.ssm_path_prefix, local.private_key_name)}"
-  kms_key_id               = "${length(var.kms_key_id) ? var.kms_key_id : format("alias/%s-%s-chamber", var.namespace, var.stage)}"
+  kms_key_id               = "${length(var.kms_key_id) > 0 ? var.kms_key_id : format("alias/%s-%s-chamber", var.namespace, var.stage)}"
 }
 
 data "aws_kms_key" "kms_key" {
