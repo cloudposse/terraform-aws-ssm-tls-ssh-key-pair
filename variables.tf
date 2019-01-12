@@ -43,10 +43,16 @@ variable "overwrite_ssm_parameter" {
   description = "Whether to overwrite an existing SSM parameter"
 }
 
-variable "enable_kms_key_rotation" {
+variable "ssm_path_format" {
   type        = "string"
-  default     = "true"
-  description = "Whether KMS key rotation is enabled"
+  description = "SSM path format"
+  default     = "/%s/%s"
+}
+
+variable "kms_key_id" {
+  type        = "string"
+  description = "KMS Key ID used for encryption"
+  default     = ""
 }
 
 variable "ssh_public_key_name" {

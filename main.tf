@@ -17,13 +17,14 @@ locals {
   default_private_key_name = "${local.remapped_label_id}_private_key"
   public_key_name          = "${length(var.ssh_public_key_name) > 0 ? var.ssh_public_key_name : local.default_public_key_name}"
   private_key_name         = "${length(var.ssh_private_key_name) > 0 ? var.ssh_private_key_name : local.default_private_key_name}"
-  ssh_public_key_ssm_path  = "${format("/%s/%s", var.ssm_path_prefix, local.public_key_name)}"
-  ssh_private_key_ssm_path = "${format("/%s/%s", var.ssm_path_prefix, local.private_key_name)}"
+  ssh_public_key_ssm_path  = "${format(var.ssm_path_format, var.ssm_path_prefix, local.public_key_name)}"
+  ssh_private_key_ssm_path = "${format(var.ssm_path_format, var.ssm_path_prefix, local.private_key_name)}"
+  kms_key_id               = "${length(var.kms_key_id) > 0 ? var.kms_key_id : format("alias/%s-%s-chamber", var.namespace, var.stage)}"
 }
 
-data "aws_kms_key" "chamber_kms_key" {
+data "aws_kms_key" "kms_key" {
   count  = "${local.enabled ? 1 : 0}"
-  key_id = "${format("alias/%s-%s-chamber", var.namespace, var.stage)}"
+  key_id = "${local.kms_key_id}"
 }
 
 resource "tls_private_key" "default_rsa" {
@@ -43,7 +44,7 @@ resource "aws_ssm_parameter" "private_rsa_key" {
   name        = "${local.ssh_private_key_ssm_path}"
   description = "TLS Private Key"
   type        = "SecureString"
-  key_id      = "${join("", data.aws_kms_key.chamber_kms_key.*.id)}"
+  key_id      = "${join("", data.aws_kms_key.kms_key.*.id)}"
   value       = "${join("", tls_private_key.default_rsa.*.private_key_pem)}"
   overwrite   = "${var.overwrite_ssm_parameter}"
   depends_on  = ["tls_private_key.default_rsa"]
@@ -66,7 +67,7 @@ resource "aws_ssm_parameter" "private_ecdsa_key" {
   name        = "${local.ssh_private_key_ssm_path}"
   description = "TLS Private Key (${var.ssh_key_algorithm})"
   type        = "SecureString"
-  key_id      = "${join("",data.aws_kms_key.chamber_kms_key.id)}"
+  key_id      = "${join("",data.aws_kms_key.kms_key.*.id)}"
   value       = "${join("", tls_private_key.default_ecdsa.*.private_key_pem)}"
   overwrite   = "${var.overwrite_ssm_parameter}"
   depends_on  = ["tls_private_key.default_ecdsa"]
