@@ -3,7 +3,7 @@ output "ssh_public_key" {
   description = "Content of the generated public key"
 }
 
-output "shh_key_name" {
+output "ssh_key_name" {
   value       = module.ssm_tls_ssh_key_pair.key_name
   description = "Name of SSH key"
 }
