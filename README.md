@@ -3,7 +3,7 @@
 
 [![Cloud Posse][logo]](https://cpco.io/homepage)
 
-# terraform-aws-ssm-tls-ssh-key-pair [![Build Status](https://travis-ci.org/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-aws-ssm-tls-ssh-key-pair) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.svg)](https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# terraform-aws-ssm-tls-ssh-key-pair [![Codefresh Build Status](https://g.codefresh.io/api/badges/pipeline/cloudposse/terraform-modules%2Fterraform-aws-ssm-tls-ssh-key-pair?type=cf-1)](https://g.codefresh.io/public/accounts/cloudposse/pipelines/5d1ba83195dc307c009861ce) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.svg)](https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
 Terraform module that provisions an SSH TLS key pair and writes it to SSM Parameter Store.
@@ -44,6 +44,11 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 
 ## Usage
 
+
+**IMPORTANT:** The `master` branch is used in `source` just as an example. In your code, do not pin to `master` because there may be breaking changes between releases.
+Instead pin to the release tag (e.g. `?ref=tags/x.y.z`) of one of our [latest releases](https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair/releases).
+
+
 ```hcl
 module "ssm_tls_ssh_key_pair" {
   source               = "git::https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.git?ref=master"
@@ -74,28 +79,29 @@ Available targets:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| attributes | Additional attributes (e.g. `1`) | list | `<list>` | no |
+| attributes | Additional attributes (e.g. `1`) | list(string) | `<list>` | no |
 | delimiter | Delimiter to be used between `namespace`, `stage`, `name` and `attributes` | string | `-` | no |
 | ecdsa_curve | When ssh_key_algorithm is 'ECDSA', the name of the elliptic curve to use. May be any one of 'P256', 'P384' or P521' | string | `P256` | no |
-| enabled | Whether to create the resources. Set to `false` to prevent the module from creating any resources | string | `true` | no |
+| enabled | Whether to create the resources. Set to `false` to prevent the module from creating any resources | bool | `true` | no |
 | kms_key_id | KMS Key ID used for encryption | string | `` | no |
 | name | Application or solution name (e.g. `app`) | string | - | yes |
-| namespace | Namespace (e.g. `eg` or `cp`) | string | - | yes |
-| overwrite_ssm_parameter | Whether to overwrite an existing SSM parameter | string | `true` | no |
-| rsa_bits | When ssh_key_algorithm is 'RSA', the size of the generated RSA key in bits | string | `4096` | no |
+| namespace | Namespace (e.g. `eg` or `cp`) | string | `` | no |
+| overwrite_ssm_parameter | Whether to overwrite an existing SSM parameter | bool | `true` | no |
+| rsa_bits | When ssh_key_algorithm is 'RSA', the size of the generated RSA key in bits | number | `4096` | no |
 | ssh_key_algorithm | SSH key algorithm to use. Currently-supported values are 'RSA' and 'ECDSA' | string | `RSA` | no |
 | ssh_private_key_name | SSM Parameter name of the SSH private key | string | `` | no |
 | ssh_public_key_name | SSM Parameter name of the SSH public key | string | `` | no |
 | ssm_path_format | SSM path format | string | `/%s/%s` | no |
 | ssm_path_prefix | The SSM parameter path prefix (e.g. /$ssm_path_prefix/$key_name) | string | `ssh_keys` | no |
-| stage | Stage (e.g. `prod`, `dev`, `staging`) | string | - | yes |
-| tags | Additional tags (e.g. map(`BusinessUnit`,`XYZ`) | map | `<map>` | no |
+| stage | Stage (e.g. `prod`, `dev`, `staging`) | string | `` | no |
+| tags | Additional tags (e.g. map(`BusinessUnit`,`XYZ`) | map(string) | `<map>` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| public_key | Contents of the generated public key |
+| key_name | Name of SSH key |
+| public_key | Content of the generated public key |
 
 
 
@@ -233,13 +239,15 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 
 ### Contributors
 
-|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Josh Myers][joshmyers_avatar]][joshmyers_homepage]<br/>[Josh Myers][joshmyers_homepage] |
-|---|---|
+|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Josh Myers][joshmyers_avatar]][joshmyers_homepage]<br/>[Josh Myers][joshmyers_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] |
+|---|---|---|
 
   [osterman_homepage]: https://github.com/osterman
   [osterman_avatar]: https://github.com/osterman.png?size=150
   [joshmyers_homepage]: https://github.com/joshmyers
   [joshmyers_avatar]: https://github.com/joshmyers.png?size=150
+  [aknysh_homepage]: https://github.com/aknysh
+  [aknysh_avatar]: https://github.com/aknysh.png?size=150
 
 
 
