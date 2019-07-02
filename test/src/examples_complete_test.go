@@ -26,9 +26,22 @@ func TestExamplesComplete(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptions)
 
 	// Run `terraform output` to get the value of an output variable
-	keyName := terraform.Output(t, terraformOptions, "key_name")
+	sshKeyName := terraform.Output(t, terraformOptions, "ssh_key_name")
 
-	expectedKeyName := "eg-test-ssm-tls-ssh-key-pair"
+	expectedSHHKeyName := "eg-test-ssm-tls-ssh-key-pair"
 	// Verify we're getting back the outputs we expect
-	assert.Equal(t, expectedKeyName, keyName)
+	assert.Equal(t, expectedSHHKeyName, sshKeyName)
+
+	// Run `terraform output` to get the value of an output variable
+	kmsKeyArn := terraform.Output(t, terraformOptions, "kms_key_arn")
+
+	// Verify we're getting back the outputs we expect
+	assert.Contains(t, kmsKeyArn, "arn:aws:kms:us-west-1:126450723953:key/")
+
+	// Run `terraform output` to get the value of an output variable
+	kmsAliasName := terraform.Output(t, terraformOptions, "kms_alias_name")
+
+	expectedKmsAliasName := "alias/eg-test-ssm-tls-ssh-key-pair"
+	// Verify we're getting back the outputs we expect
+	assert.Equal(t, expectedKmsAliasName, kmsAliasName)
 }
