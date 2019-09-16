@@ -7,3 +7,13 @@ output "key_name" {
   value       = module.label.id
   description = "Name of SSH key"
 }
+
+output "ssh_public_key_ssm_path" {
+  value       = local.ssh_public_key_ssm_path
+  description = "SSM path of the generated public key"
+}
+
+output "ssh_private_key_ssm_path" {
+  value       = local.ssh_private_key_ssm_path
+  description = "SSM path of the generated private key"
+}
