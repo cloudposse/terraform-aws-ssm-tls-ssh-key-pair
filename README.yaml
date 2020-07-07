@@ -1,4 +1,3 @@
----
 #
 # This is the canonical configuration for the `README.md`
 # Run `make readme` to rebuild the `README.md`
@@ -6,28 +5,21 @@
 
 # Name of this project
 name: terraform-aws-ssm-tls-ssh-key-pair
-
 # Logo for this project
 #logo: docs/logo.png
 
 # License of this project
 license: "APACHE2"
-
 # Canonical GitHub repo
 github_repo: cloudposse/terraform-aws-ssm-tls-ssh-key-pair
-
 # Badges to display
 badges:
-  - name: "Codefresh Build Status"
-    image: "https://g.codefresh.io/api/badges/pipeline/cloudposse/terraform-modules%2Fterraform-aws-ssm-tls-ssh-key-pair?type=cf-1"
-    url: "https://g.codefresh.io/public/accounts/cloudposse/pipelines/5d1ba83195dc307c009861ce"
   - name: "Latest Release"
     image: "https://img.shields.io/github/release/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.svg"
     url: "https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair/releases/latest"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
-
 related:
   - name: "terraform-aws-key-pair"
     description: "Terraform Module to Automatically Generate SSH key Pairs (Public/Private Keys)"
@@ -35,13 +27,11 @@ related:
   - name: "terraform-tls-ssh-key-pair"
     description: "Terraform module for generating an SSH public key file"
     url: "https://github.com/cloudposse/terraform-tls-ssh-key-pair"
-
 # Short description of this project
 description: |-
   Terraform module that provisions an SSH TLS key pair and writes it to SSM Parameter Store.
 
   This is useful for bot accounts (e.g. for GitHub). Easily rotate SSH secrets by simply tainting the module resource and reapplying.
-
 # How to use this project
 usage: |-
   ```hcl
@@ -54,11 +44,9 @@ usage: |-
     ssh_key_algorithm    = "ECDSA"
   }
   ```
-
 include:
   - "docs/targets.md"
   - "docs/terraform.md"
-
 # Contributors to this project
 contributors:
   - name: "Erik Osterman"

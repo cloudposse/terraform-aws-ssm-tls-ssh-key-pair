@@ -42,7 +42,7 @@
 
 [![Cloud Posse][logo]](https://cpco.io/homepage)
 
-# terraform-aws-ssm-tls-ssh-key-pair [![Codefresh Build Status](https://g.codefresh.io/api/badges/pipeline/cloudposse/terraform-modules%2Fterraform-aws-ssm-tls-ssh-key-pair?type=cf-1)](https://g.codefresh.io/public/accounts/cloudposse/pipelines/5d1ba83195dc307c009861ce) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.svg)](https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# terraform-aws-ssm-tls-ssh-key-pair [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-ssm-tls-ssh-key-pair.svg)](https://github.com/cloudposse/terraform-aws-ssm-tls-ssh-key-pair/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
 Terraform module that provisions an SSH TLS key pair and writes it to SSM Parameter Store.
@@ -114,35 +114,52 @@ Available targets:
   lint                                Lint terraform code
 
 ```
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | ~> 0.12.0 |
+| aws | ~> 2.0 |
+| local | ~> 1.3 |
+| null | ~> 2.1 |
+| tls | ~> 2.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | ~> 2.0 |
+| tls | ~> 2.0 |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| attributes | Additional attributes (e.g. `1`) | list(string) | `<list>` | no |
-| delimiter | Delimiter to be used between `namespace`, `stage`, `name` and `attributes` | string | `-` | no |
-| ecdsa_curve | When ssh_key_algorithm is 'ECDSA', the name of the elliptic curve to use. May be any one of 'P256', 'P384' or P521' | string | `P256` | no |
-| enabled | Whether to create the resources. Set to `false` to prevent the module from creating any resources | bool | `true` | no |
-| kms_key_id | KMS Key ID used for encryption | string | `` | no |
-| name | Application or solution name (e.g. `app`) | string | - | yes |
-| namespace | Namespace (e.g. `eg` or `cp`) | string | `` | no |
-| overwrite_ssm_parameter | Whether to overwrite an existing SSM parameter | bool | `true` | no |
-| rsa_bits | When ssh_key_algorithm is 'RSA', the size of the generated RSA key in bits | number | `4096` | no |
-| ssh_key_algorithm | SSH key algorithm to use. Currently-supported values are 'RSA' and 'ECDSA' | string | `RSA` | no |
-| ssh_private_key_name | SSM Parameter name of the SSH private key | string | `` | no |
-| ssh_public_key_name | SSM Parameter name of the SSH public key | string | `` | no |
-| ssm_path_format | SSM path format | string | `/%s/%s` | no |
-| ssm_path_prefix | The SSM parameter path prefix (e.g. /$ssm_path_prefix/$key_name) | string | `ssh_keys` | no |
-| stage | Stage (e.g. `prod`, `dev`, `staging`) | string | `` | no |
-| tags | Additional tags (e.g. map(`BusinessUnit`,`XYZ`) | map(string) | `<map>` | no |
+|------|-------------|------|---------|:--------:|
+| attributes | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
+| delimiter | Delimiter to be used between `namespace`, `stage`, `name` and `attributes` | `string` | `"-"` | no |
+| ecdsa\_curve | When ssh\_key\_algorithm is 'ECDSA', the name of the elliptic curve to use. May be any one of 'P256', 'P384' or P521' | `string` | `"P256"` | no |
+| enabled | Whether to create the resources. Set to `false` to prevent the module from creating any resources | `bool` | `true` | no |
+| kms\_key\_id | KMS Key ID used for encryption | `string` | `""` | no |
+| name | Application or solution name (e.g. `app`) | `string` | n/a | yes |
+| namespace | Namespace (e.g. `eg` or `cp`) | `string` | `""` | no |
+| overwrite\_ssm\_parameter | Whether to overwrite an existing SSM parameter | `bool` | `true` | no |
+| rsa\_bits | When ssh\_key\_algorithm is 'RSA', the size of the generated RSA key in bits | `number` | `4096` | no |
+| ssh\_key\_algorithm | SSH key algorithm to use. Currently-supported values are 'RSA' and 'ECDSA' | `string` | `"RSA"` | no |
+| ssh\_private\_key\_name | SSM Parameter name of the SSH private key | `string` | `""` | no |
+| ssh\_public\_key\_name | SSM Parameter name of the SSH public key | `string` | `""` | no |
+| ssm\_path\_format | SSM path format | `string` | `"/%s/%s"` | no |
+| ssm\_path\_prefix | The SSM parameter path prefix (e.g. /$ssm\_path\_prefix/$key\_name) | `string` | `"ssh_keys"` | no |
+| stage | Stage (e.g. `prod`, `dev`, `staging`) | `string` | `""` | no |
+| tags | Additional tags (e.g. map(`BusinessUnit`,`XYZ`) | `map(string)` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| key_name | Name of SSH key |
-| public_key | Content of the generated public key |
-| ssh_private_key_ssm_path | SSM path of the generated private key |
-| ssh_public_key_ssm_path | SSM path of the generated public key |
+| key\_name | Name of SSH key |
+| public\_key | Content of the generated public key |
+| ssh\_private\_key\_ssm\_path | SSM path of the generated private key |
+| ssh\_public\_key\_ssm\_path | SSM path of the generated public key |
 
 
 
@@ -196,6 +213,10 @@ We deliver 10x the value for a fraction of the cost of a full-time engineer. Our
 ## Slack Community
 
 Join our [Open Source Community][slack] on Slack. It's **FREE** for everyone! Our "SweetOps" community is where you get to talk with others who share a similar vision for how to rollout and manage infrastructure. This is the best place to talk shop, ask questions, solicit feedback, and work together as a community to build totally *sweet* infrastructure.
+
+## Discourse Forums
+
+Participate in our [Discourse Forums][discourse]. Here you'll find answers to commonly asked questions. Most questions will be related to the enormous number of projects we support on our GitHub. Come here to collaborate on answers, find solutions, and get ideas about the products and services we value. It only takes a minute to get started! Just sign in with SSO using your GitHub account.
 
 ## Newsletter
 
@@ -312,6 +333,7 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [testimonial]: https://cpco.io/leave-testimonial?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-ssm-tls-ssh-key-pair&utm_content=testimonial
   [office_hours]: https://cloudposse.com/office-hours?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-ssm-tls-ssh-key-pair&utm_content=office_hours
   [newsletter]: https://cpco.io/newsletter?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-ssm-tls-ssh-key-pair&utm_content=newsletter
+  [discourse]: https://ask.sweetops.com/?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-ssm-tls-ssh-key-pair&utm_content=discourse
   [email]: https://cpco.io/email?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-ssm-tls-ssh-key-pair&utm_content=email
   [commercial_support]: https://cpco.io/commercial-support?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-ssm-tls-ssh-key-pair&utm_content=commercial_support
   [we_love_open_source]: https://cpco.io/we-love-open-source?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-ssm-tls-ssh-key-pair&utm_content=we_love_open_source
