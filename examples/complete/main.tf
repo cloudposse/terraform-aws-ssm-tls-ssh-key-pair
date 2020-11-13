@@ -3,10 +3,9 @@ provider "aws" {
 }
 
 module "kms_key" {
-  source                  = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=tags/0.2.0"
-  namespace               = var.namespace
-  stage                   = var.stage
-  name                    = var.name
+  source = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=tags/0.7.0"
+
+  context                 = module.this.context
   description             = "Test KMS key"
   deletion_window_in_days = 7
   enable_key_rotation     = false
@@ -14,9 +13,7 @@ module "kms_key" {
 
 module "ssm_tls_ssh_key_pair" {
   source               = "../../"
-  namespace            = var.namespace
-  stage                = var.stage
-  name                 = var.name
+  context              = module.this.context
   kms_key_id           = module.kms_key.key_id
   ssm_path_prefix      = var.ssm_path_prefix
   ssh_key_algorithm    = var.ssh_key_algorithm
