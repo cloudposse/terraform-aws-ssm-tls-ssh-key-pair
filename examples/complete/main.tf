@@ -3,7 +3,8 @@ provider "aws" {
 }
 
 module "kms_key" {
-  source = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=tags/0.7.0"
+  source  = "cloudposse/kms-key/aws"
+  version = "0.7.0"
 
   context                 = module.this.context
   description             = "Test KMS key"
