@@ -1,9 +1,3 @@
-variable "overwrite_ssm_parameter" {
-  type        = bool
-  default     = true
-  description = "Whether to overwrite an existing SSM parameter"
-}
-
 variable "ssm_path_format" {
   type        = string
   description = "SSM path format"
