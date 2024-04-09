@@ -1,0 +1,7 @@
+# Upstream changes from _extends are only recognized when modifications are made to this file in the default branch.
+_extends: .github
+repository:
+  name: terraform-aws-ssm-tls-ssh-key-pair
+  description: Terraform module that provisions an SSH TLS Key pair and writes it to SSM Parameter Store
+  homepage: https://cloudposse.com/accelerate
+  topics: terraform, terraform-module, ssm, aws, tls, ssh, keypair, publickey, privatekey, openssh, chamber, atlantis, cicd, key-rotation, kms, hcl2
