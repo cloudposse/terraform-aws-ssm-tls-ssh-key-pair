@@ -44,9 +44,8 @@ resource "aws_ssm_parameter" "private_rsa_key" {
   name        = local.ssh_private_key_ssm_path
   description = "TLS Private Key"
   type        = "SecureString"
-  key_id      = join("", data.aws_kms_key.kms_key.*.id)
-  value       = join("", tls_private_key.default_rsa.*.private_key_pem)
-  overwrite   = var.overwrite_ssm_parameter
+  key_id      = join("", data.aws_kms_key.kms_key[*].id)
+  value       = join("", tls_private_key.default_rsa[*].private_key_pem)
   depends_on  = [tls_private_key.default_rsa]
   tags        = module.this.tags
 }
@@ -56,8 +55,7 @@ resource "aws_ssm_parameter" "public_rsa_key" {
   name        = local.ssh_public_key_ssm_path
   description = "TLS Public Key (OpenSSH - ${var.ssh_key_algorithm})"
   type        = "String"
-  value       = join("", tls_private_key.default_rsa.*.public_key_openssh)
-  overwrite   = var.overwrite_ssm_parameter
+  value       = join("", tls_private_key.default_rsa[*].public_key_openssh)
   depends_on  = [tls_private_key.default_rsa]
   tags        = module.this.tags
 }
@@ -67,9 +65,8 @@ resource "aws_ssm_parameter" "private_ecdsa_key" {
   name        = local.ssh_private_key_ssm_path
   description = "TLS Private Key (${var.ssh_key_algorithm})"
   type        = "SecureString"
-  key_id      = join("", data.aws_kms_key.kms_key.*.id)
-  value       = join("", tls_private_key.default_ecdsa.*.private_key_pem)
-  overwrite   = var.overwrite_ssm_parameter
+  key_id      = join("", data.aws_kms_key.kms_key[*].id)
+  value       = join("", tls_private_key.default_ecdsa[*].private_key_pem)
   depends_on  = [tls_private_key.default_ecdsa]
   tags        = module.this.tags
 }
@@ -79,8 +76,7 @@ resource "aws_ssm_parameter" "public_ecdsa_key" {
   name        = local.ssh_public_key_ssm_path
   description = "TLS Public Key (${var.ssh_key_algorithm})"
   type        = "String"
-  value       = join("", tls_private_key.default_ecdsa.*.public_key_openssh)
-  overwrite   = var.overwrite_ssm_parameter
+  value       = join("", tls_private_key.default_ecdsa[*].public_key_openssh)
   depends_on  = [tls_private_key.default_ecdsa]
   tags        = module.this.tags
 }
